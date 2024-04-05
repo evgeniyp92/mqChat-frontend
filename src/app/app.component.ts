@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Output} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'mqChat-frontend';
+
+  messages = [
+    {
+      message: 'Welcome to mqChat-frontend',
+    }
+  ]
+
+  handleClick() {
+    this.messages = [...this.messages, ...this.messages]
+    console.log(this.messages)
+  }
 }
