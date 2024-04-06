@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +7,10 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
   message: string | '' = ''
+  @Output() onMessageSubmit = new EventEmitter()
 
   handleSubmit() {
-    console.log('handleSubmit');
+    this.onMessageSubmit.emit(this.message)
   }
 
   handleKeypress(_: any) {

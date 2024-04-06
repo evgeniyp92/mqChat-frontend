@@ -1,9 +1,10 @@
-<button class="w-20 p-4 bg-amber-600" (click)="handleClick()">Add an element</button>
+<button class="bg-blue-500 px-4 py-2 text-white font-sans font-bold text-sm rounded-xl" (click)="handleClick()">Do the
+  thing</button>
 <div class="flex flex-col h-dvh w-dvw">
   <app-header />
   <div class="grow bg-zinc-100 flex flex-col-reverse overflow-scroll">
     <app-chat-view [messages]="messages"/>
   </div>
-  <app-footer />
+    <app-footer (onMessageSubmit)="handleOnMessageSubmit($event)"/>
 </div>
 <router-outlet />
