@@ -12,11 +12,11 @@ export class FooterComponent {
   @Output() onMessageSubmit = new EventEmitter();
 
   handleSubmit() {
-    console.log(this.messageText);
     this.onMessageSubmit.emit({ messageText: this.messageText });
   }
 
   handleKeypress(_: any) {
+    // TODO: Decide what to do with keypresses
     console.log('handleKeyPress');
   }
 }

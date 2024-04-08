@@ -9,11 +9,9 @@ export class IndexedDBService {
   constructor() {}
 
   async getMessages(): Promise<ChatMessageObject[]> {
-    const messages = (await localforage.getItem(
-      'messages',
-    )) as ChatMessageObject[];
-    console.log(messages);
-    return messages;
+    const messages: ChatMessageObject[] | null =
+      await localforage.getItem('messages');
+    return messages || [];
   }
 
   async setMessages(newMessages: ChatMessageObject[]) {

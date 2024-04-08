@@ -9,7 +9,7 @@ import { ChatMessageObject } from './chat/chat-item/chat-item.component';
 })
 export class AppComponent implements OnInit {
   messages$ = this.backend.messages$.subscribe((v) => {
-    console.log(v);
+    // console.log(v);
     this.messages = v;
   });
   messages: ChatMessageObject[] = [];
@@ -25,20 +25,17 @@ export class AppComponent implements OnInit {
   }
 
   handleOnMessageSubmit(event: { messageText: string }) {
-    console.log(event);
     const submit: ChatMessageObject = {
       message: event.messageText,
-      // @ts-expect-error
-      username: this.backend.username$.value,
+      username: this.backend.username$.value!,
       postDate: new Date(Date.now()),
     };
-    console.log(submit);
     // try to post it to event stream
 
     // update localStorage with the new message if successful
+    this.backend.postNewMessage(submit).then();
 
-    // update app state with message
-    // this.backend.postNewMessage().then();
+    // update app state with message -- redundant because of BehaviorSubject and will be handled in BackendService
   }
 
   handleClick() {}
