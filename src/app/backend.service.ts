@@ -9,15 +9,22 @@ import { ChatMessageObject } from './chat/chat-item/chat-item.component';
 export class BackendService {
   constructor(private indexedDBService: IndexedDBService) {}
 
-  messages$ = new BehaviorSubject<any[]>([]);
+  messages$ = new BehaviorSubject<ChatMessageObject[]>([]);
+  username$ = new BehaviorSubject<string | null>(null);
 
   async init() {
     const messages = await this.indexedDBService.getLocalStorage();
     this.messages$.next(messages);
+    const username = await this.indexedDBService.getUserId();
+    if (username) {
+      this.username$.next(username);
+    } else {
+      this.username$.next('Anony Mouse');
+    }
   }
 
   // TODO: Implement proper typing and data format for pushing data
-  async postNewMessage(newMessage: any) {
+  async postNewMessage(newMessage: ChatMessageObject) {
     let messages = await this.indexedDBService.getLocalStorage();
     console.log(messages);
     messages = [...messages, newMessage];

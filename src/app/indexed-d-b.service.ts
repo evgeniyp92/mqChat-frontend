@@ -8,10 +8,11 @@ import * as localforage from 'localforage';
 export class IndexedDBService {
   constructor() {}
 
-  async getLocalStorage(): Promise<any[]> {
-    const messages = await localforage.getItem('messages');
+  async getLocalStorage(): Promise<ChatMessageObject[]> {
+    const messages = (await localforage.getItem(
+      'messages',
+    )) as ChatMessageObject[];
     console.log(messages);
-    // @ts-expect-error
     return messages;
   }
 
@@ -19,13 +20,13 @@ export class IndexedDBService {
     await localforage.setItem('messages', newMessages);
   }
 
-  async getUserId() {
-    return localStorage.getItem('userId')
-      ? localStorage.getItem('userId')
+  async getUserId(): Promise<string | null> {
+    return (await localforage.getItem('userId'))
+      ? localforage.getItem('userId')
       : null;
   }
 
   async setUserId(userId: string) {
-    localStorage.setItem('userId', userId);
+    await localforage.setItem('userId', userId);
   }
 }

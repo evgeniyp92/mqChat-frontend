@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from './backend.service';
+import { ChatMessageObject } from './chat/chat-item/chat-item.component';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +8,12 @@ import { BackendService } from './backend.service';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  // messages = [{ message: 'Welcome to mqChat-frontend' }];
-  // test = this.backend.messages$.subscribe((v) => {
-  //   console.log(v);
-  // });
   messages$ = this.backend.messages$.subscribe((v) => {
     console.log(v);
     this.messages = v;
   });
-  messages: any[] = [];
+  messages: ChatMessageObject[] = [];
+  username$ = this.backend.username$.subscribe();
 
   constructor(private backend: BackendService) {}
 
@@ -27,15 +25,16 @@ export class AppComponent implements OnInit {
     // for each message received, push it to localStorage and update app state
   }
 
-  handleOnMessageSubmit(event: any) {
+  handleOnMessageSubmit(event: ChatMessageObject) {
     console.log(event);
     // try to post it to event stream
 
     // update localStorage with the new message if successful
 
     // update app state with messages
-    this.messages = [...this.messages, { message: event }];
-    this.backend.postNewMessage(event);
+    // TODO: Append the new message here
+    this.messages = [...this.messages];
+    this.backend.postNewMessage(event).then();
   }
 
   handleClick() {}

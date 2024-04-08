@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 export interface ChatMessageObject {
   username: string;
@@ -9,8 +9,12 @@ export interface ChatMessageObject {
 @Component({
   selector: 'app-chat-item',
   templateUrl: './chat-item.component.html',
-  styleUrl: './chat-item.component.css'
+  styleUrl: './chat-item.component.css',
 })
-export class ChatItemComponent {
-  @Input() messageObject: { message: string } | null = null
+export class ChatItemComponent implements OnInit {
+  @Input() messageObject: ChatMessageObject | null = null;
+
+  ngOnInit(): void {
+    console.log(this.messageObject);
+  }
 }
