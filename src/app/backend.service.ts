@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IndexedDBService } from './indexed-d-b.service';
 import { ChatMessageObject } from './chat/chat-item/chat-item.component';
+import { data } from 'autoprefixer';
 
 @Injectable({
   providedIn: 'root',
@@ -13,11 +14,15 @@ export class BackendService {
   username$ = new BehaviorSubject<string | null>(null);
 
   async init() {
-    const messages = await this.indexedDBService.getLocalStorage();
+    const messages = await this.indexedDBService.getMessages();
     this.messages$.next(messages);
-    const username = await this.indexedDBService.getUserId();
-    if (username) {
-      this.username$.next(username);
+    const data = await this.indexedDBService.getUserId();
+    if (data) {
+      const { username } = data;
+      console.log(username);
+      if (username) {
+        this.username$.next(username);
+      }
     } else {
       this.username$.next('Anony Mouse');
     }
@@ -25,11 +30,12 @@ export class BackendService {
 
   // TODO: Implement proper typing and data format for pushing data
   async postNewMessage(newMessage: ChatMessageObject) {
-    let messages = await this.indexedDBService.getLocalStorage();
+    let messages = this.messages$.getValue();
+    console.log('Post New Message Fired', newMessage);
     console.log(messages);
-    messages = [...messages, newMessage];
-    await this.indexedDBService.setLocalStorage(messages);
-    this.messages$.next(messages);
+    // messages = [...messages, newMessage];
+    // await this.indexedDBService.setMessages(messages);
+    // this.messages$.next(messages);
   }
 
   async setUsername(username: string | null) {

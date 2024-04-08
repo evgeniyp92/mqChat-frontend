@@ -13,7 +13,6 @@ export class AppComponent implements OnInit {
     this.messages = v;
   });
   messages: ChatMessageObject[] = [];
-  username$ = this.backend.username$.subscribe();
 
   constructor(private backend: BackendService) {}
 
@@ -27,16 +26,19 @@ export class AppComponent implements OnInit {
 
   handleOnMessageSubmit(event: { messageText: string }) {
     console.log(event);
-    //
+    const submit: ChatMessageObject = {
+      message: event.messageText,
+      // @ts-expect-error
+      username: this.backend.username$.value,
+      postDate: new Date(Date.now()),
+    };
+    console.log(submit);
     // try to post it to event stream
 
     // update localStorage with the new message if successful
 
-    // update app state with messages
-    // TODO: Append the new message here
-    this.messages = [...this.messages];
-    // @ts-expect-error
-    this.backend.postNewMessage(event).then();
+    // update app state with message
+    // this.backend.postNewMessage().then();
   }
 
   handleClick() {}

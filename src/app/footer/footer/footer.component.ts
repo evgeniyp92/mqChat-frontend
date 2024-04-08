@@ -12,6 +12,7 @@ export class FooterComponent {
   @Output() onMessageSubmit = new EventEmitter();
 
   handleSubmit() {
+    console.log(this.messageText);
     this.onMessageSubmit.emit({ messageText: this.messageText });
   }
 
