@@ -31,4 +31,9 @@ export class BackendService {
     await this.indexedDBService.setLocalStorage(messages);
     this.messages$.next(messages);
   }
+
+  async setUsername(username: string | null) {
+    const result = await this.indexedDBService.setUserId(username);
+    this.username$.next(result.username);
+  }
 }
