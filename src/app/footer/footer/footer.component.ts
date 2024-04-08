@@ -1,4 +1,6 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { ChatMessageObject } from '../../chat/chat-item/chat-item.component';
+import { BackendService } from '../../backend.service';
 
 @Component({
   selector: 'app-footer',
@@ -6,11 +8,11 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrl: './footer.component.css',
 })
 export class FooterComponent {
-  message: string | '' = ''
-  @Output() onMessageSubmit = new EventEmitter()
+  messageText: string = '';
+  @Output() onMessageSubmit = new EventEmitter();
 
   handleSubmit() {
-    this.onMessageSubmit.emit(this.message)
+    this.onMessageSubmit.emit({ messageText: this.messageText });
   }
 
   handleKeypress(_: any) {

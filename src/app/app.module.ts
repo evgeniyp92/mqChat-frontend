@@ -7,7 +7,7 @@ import { HeaderComponent } from './header/header/header.component';
 import { FooterComponent } from './footer/footer/footer.component';
 import { ChatViewComponent } from './chat/chat-view/chat-view.component';
 import { ChatItemComponent } from './chat/chat-item/chat-item.component';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,14 +15,10 @@ import { FormsModule } from "@angular/forms";
     HeaderComponent,
     FooterComponent,
     ChatViewComponent,
-    ChatItemComponent
+    ChatItemComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

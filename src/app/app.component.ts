@@ -25,8 +25,9 @@ export class AppComponent implements OnInit {
     // for each message received, push it to localStorage and update app state
   }
 
-  handleOnMessageSubmit(event: ChatMessageObject) {
+  handleOnMessageSubmit(event: { messageText: string }) {
     console.log(event);
+    //
     // try to post it to event stream
 
     // update localStorage with the new message if successful
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit {
     // update app state with messages
     // TODO: Append the new message here
     this.messages = [...this.messages];
+    // @ts-expect-error
     this.backend.postNewMessage(event).then();
   }
 
